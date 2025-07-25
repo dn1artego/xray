@@ -8,6 +8,19 @@
 2.  `xray-update.sh` - Скрипт для обновления ядра Xray и баз GeoIP.
 3.  `xray-uninstall.sh` - Скрипт для полного удаления Xray из системы.
 
+Установка
+```
+wget -qO- https://raw.githubusercontent.com/dn1artego/xray/refs/heads/gemini/xray-install.sh | bash
+```
+
+Обновление
+```
+wget -qO- https://raw.githubusercontent.com/dn1artego/xray/refs/heads/gemini/xray-update.sh | bash
+```
+Удаление
+```
+wget -qO- https://raw.githubusercontent.com/dn1artego/xray/refs/heads/gemini/xray-uninstall.sh | bash
+```
 ---
 
 ## 1. Установка с помощью `xray-install.sh`
