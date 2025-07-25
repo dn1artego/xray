@@ -7,7 +7,7 @@ if [[ $(id -u) -ne 0 ]]; then
 fi
 
 echo "Запускаем обновление Xray-core..."
-bash -c "$(curl -4 -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
+bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
 
 echo "Обновляем файлы GeoIP и GeoSite..."
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install-geodata
