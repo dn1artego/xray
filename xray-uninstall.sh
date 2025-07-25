@@ -6,13 +6,6 @@ if [[ $(id -u) -ne 0 ]]; then
    exit 1
 fi
 
-echo "Этот скрипт полностью удалит Xray и все связанные с ним файлы."
-read -p "Вы уверены, что хотите продолжить? (y/n): " confirmation
-if [[ "$confirmation" != "y" ]]; then
-    echo "Удаление отменено."
-    exit 1
-fi
-
 # 2. Остановка и отключение службы Xray
 echo "Остановка и отключение службы Xray..."
 systemctl stop xray
