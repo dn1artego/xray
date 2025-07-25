@@ -41,7 +41,7 @@ if [ -n "$SUDO_USER" ]; then
 else
     # Если SUDO_USER не определен, ищем в /root
     HELP_FILE_PATH="/root/xray_help.txt"
-     if [ -f "$HELP_FILE_PATH" ]; then
+    if [ -f "$HELP_FILE_PATH" ]; then
         echo "Удаление файла с подсказками..."
         rm -f "$HELP_FILE_PATH"
     fi
