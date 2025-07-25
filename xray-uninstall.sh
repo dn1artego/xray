@@ -20,7 +20,7 @@ systemctl disable xray
 
 # 3. Запуск официального скрипта удаления
 echo "Запуск официального деинсталлятора Xray..."
-bash -c "$(curl -4 -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ remove --purge
+bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ remove
 
 # 4. Удаление вспомогательных скриптов
 echo "Удаление вспомогательных утилит..."
