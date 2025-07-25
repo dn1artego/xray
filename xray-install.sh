@@ -1,6 +1,28 @@
 #!/bin/bash
+
+# Проверка на root-права
+if [[ $(id -u) -ne 0 ]]; then
+   echo "Этот скрипт нужно запускать с правами root (используйте sudo)."
+   exit 1
+fi
+
 apt update
-apt install qrencode curl jq -y
+
+# Проверка и установка зависимостей
+echo "Проверка необходимых пакетов..."
+needed_packages=""
+for pkg in qrencode curl jq; do
+    if ! command -v $pkg &> /dev/null; then
+        needed_packages+="$pkg "
+    fi
+done
+
+if [ -n "$needed_packages" ]; then
+    echo "Установка недостающих пакетов: $needed_packages"
+    apt install $needed_packages -y
+else
+    echo "Все необходимые пакеты уже установлены."
+fi
 
 # Включаем bbr
 bbr=$(sysctl -a | grep net.ipv4.tcp_congestion_control)
@@ -23,6 +45,11 @@ echo "shortsid: $(openssl rand -hex 8)" >> /usr/local/etc/xray/.keys
 export uuid=$(cat /usr/local/etc/xray/.keys | awk -F': ' '/uuid/ {print $2}')
 export privatkey=$(cat /usr/local/etc/xray/.keys | awk -F': ' '/Private key/ {print $2}')
 export shortsid=$(cat /usr/local/etc/xray/.keys | awk -F': ' '/shortsid/ {print $2}')
+
+# Запрашиваем домен у пользователя
+read -p "Введите домен для маскировки (по умолчанию: google.com): " domain
+domain=${domain:-google.com}
+echo "Используется домен: $domain"
 
 # Создаем файл конфигурации Xray
 touch /usr/local/etc/xray/config.json
@@ -72,11 +99,11 @@ cat << EOF > /usr/local/etc/xray/config.json
                 "security": "reality",
                 "realitySettings": {
                     "show": false,
-                    "dest": "github.com:443",
+                    "dest": "$domain:443",
                     "xver": 0,
                     "serverNames": [
-                        "github.com",
-                        "www.github.com"
+                        "$domain",
+                        "www.$domain"
                     ],
                     "privateKey": "$privatkey",
                     "minClientVer": "",
