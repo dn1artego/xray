@@ -46,10 +46,7 @@ export uuid=$(cat /usr/local/etc/xray/.keys | awk -F': ' '/uuid/ {print $2}')
 export privatkey=$(cat /usr/local/etc/xray/.keys | awk -F': ' '/Private key/ {print $2}')
 export shortsid=$(cat /usr/local/etc/xray/.keys | awk -F': ' '/shortsid/ {print $2}')
 
-# Запрашиваем домен у пользователя
-read -p "Введите домен для маскировки (по умолчанию: google.com): " domain
-domain=${domain:-google.com}
-echo "Используется домен: $domain"
+domain="google.com"
 
 # Создаем файл конфигурации Xray
 touch /usr/local/etc/xray/config.json
